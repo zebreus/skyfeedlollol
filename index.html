@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Days without Skyfeed outage</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<link rel="icon" href="data:," />
+		<meta http-equiv="refresh" content="600">
+		<style>
+			body {
+				font-family: sans-serif;
+				background-color: black;
+				color: #fcfcfc;
+				margin: 0;
+				text-align: center;
+			}
+
+			.root {
+				height: 100vh;
+			}
+		
+			.centered {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				padding: 20px;
+				box-sizing: border-box;
+			}
+
+			.fake-anchor {
+				position: absolute;
+				transform: translateY(max(4vh, 50px));
+			}
+
+			.heading {
+				font-size: clamp(35px, 2vw + 30px, 80px);
+				position: relative;
+				top: min(-19vh - min(5vw, 100px) - 20px, -140px);
+				margin: 0;
+			}
+
+			.number-sign {
+				font-size: clamp(120px, 7vw + 110px, 320px);
+				margin: 0;
+				position: absolute;
+				transform: translateY(max(4vh, 50px));
+				font-weight: 525;
+			}
+
+			@media (max-height: 322px) {
+			    .root {
+			        justify-content: flex-start;
+			    }
+
+			    .fake-anchor {
+			    	position: initial;
+			    	transform: initial;
+			    }
+
+			    .heading {
+			    	position: initial;
+			    	top: initial;
+			    	margin-bottom: 8px
+			    }
+
+			    .number-sign {
+			    	position: initial;
+			    	transform: initial;
+			 
+			    }
+			}
+		</style>
+	</head>
+	<body class="root centered">
+		<div class="fake-anchor">
+			<h1 class="heading">Days without Skyfeed outage</h1>
+		</div>
+		<p class="number-sign">1</p>
+	</body>
+</html>
