@@ -1,0 +1,37 @@
+# Simple workflow for deploying static content to GitHub Pages
+name: Update downtime data
+
+on:
+  # Runs on pushes targeting the default branch
+  schedule:
+    - cron: "0 4 * * *"
+  workflow_dispatch:
+
+permissions: write-all
+
+jobs:
+  # Single deploy job since we're just deploying
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      #        with:
+      #          token:  ${{ secrets.GH_TOKEN }}
+      - name: Setup deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Fetch data
+        run: |
+          sudo apt update -y
+          sudo apt install -y curl jq sed grep
+          bash update.sh
+      - uses: EndBug/add-and-commit@v9
+        name: Commit data
+        with:
+          add: "index.html"
+          commit: --signoff
+          default_author: github_actions
+          message: "Update data"
+          push: true
