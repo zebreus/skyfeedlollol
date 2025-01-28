@@ -16,12 +16,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      #        with:
-      #          token:  ${{ secrets.GH_TOKEN }}
-      - name: Setup deno
-        uses: denoland/setup-deno@v2
-        with:
-          deno-version: v2.x
       - name: Fetch data
         run: |
           sudo apt update -y
