@@ -11,7 +11,7 @@ IS_DOWN=0
 
 # Fetch uptime without exposing the API key in xtrace output
 set +x
-UPTIME=$(curl "https://updown.io/api/checks/4yqp/metrics?from=2025-01-27T01:04:44+0100&api-key=${UPDOWN_API_KEY:-ro-gvHnFHvKHQJNhzskr4qc}" 2>/dev/null | jq -r '.uptime // empty' | grep -Po '^[0-9]+' || true)
+UPTIME=$(curl "https://updown.io/api/checks/4yqp/metrics?from=2025-01-27T01:04:44+0100&api-key=${UPDOWN_API_KEY}" 2>/dev/null | jq -r '.uptime // empty' | grep -Po '^[0-9]+' || true)
 set -x
 if [ -z "$UPTIME" ]; then
     echo "Failed to fetch or parse uptime from updown.io"
