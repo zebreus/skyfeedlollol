@@ -9,8 +9,15 @@ TIMESTAMP_YESTERDAY=$(date -d "24 hours ago" +"%Y-%m-%dT%H:%M:%S%z")
 
 IS_DOWN=0
 
-UPTIME=$(curl https://updown.io/api/checks/4yqp/metrics\?from\=2025-01-27T01:04:44+0100\&api-key\=ro-gvHnFHvKHQJNhzskr4qc | jq ".uptime" | grep -Po '^[0-9]+')
-if test "$UPTIME" -lt 98; then
+# Fetch uptime without exposing the API key in xtrace output
+set +x
+UPTIME=$(curl "https://updown.io/api/checks/4yqp/metrics?from=2025-01-27T01:04:44+0100&api-key=${UPDOWN_API_KEY:-ro-gvHnFHvKHQJNhzskr4qc}" 2>/dev/null | jq -r '.uptime // empty' | grep -Po '^[0-9]+' || true)
+set -x
+if [ -z "$UPTIME" ]; then
+    echo "Failed to fetch or parse uptime from updown.io"
+    IS_DOWN=1
+elif test "$UPTIME" -lt 98; then
+    echo "updown.io uptime is ${UPTIME}% (below 98% threshold)"
     IS_DOWN=1
 fi
 
