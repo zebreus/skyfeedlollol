@@ -26,9 +26,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Fetch data
+        env:
+          UPDOWN_API_KEY: ${{ secrets.UPDOWN_API_KEY }}
         run: |
           sudo apt update -y
-          sudo apt install -y curl jq sed grep
+          sudo apt install -y curl jq sed grep dnsutils iputils-ping
           bash update.sh
       - uses: EndBug/add-and-commit@v9
         name: Commit data
